@@ -4,10 +4,28 @@ import { useState } from 'react';
 
 function App() {
   const [queryDescription, setQueryDescription] = useState('');
+  const [sqlQuery, setSqlQuery] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('form submitted: ', queryDescription);
+    const generatedQuery = await generateQuery();
+    setSqlQuery(generatedQuery);
+  }
+
+  const generateQuery = async () => {
+    try {
+      const response = await fetch('http://localhost:3000/api/generate', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ queryDescription })
+      });
+      const data = await response.json();
+      return data.response.trim();
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   return (
@@ -17,6 +35,7 @@ function App() {
 
       <form onSubmit={handleSubmit}>
         <input 
+          required
           type="text" 
           name="query-description"
           placeholder="Describe your query"
@@ -27,6 +46,8 @@ function App() {
           type="submit"
           value="Generate query" 
         />
+
+        <p>{sqlQuery}</p>
       </form>
     </main>
   )
