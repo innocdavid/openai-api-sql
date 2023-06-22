@@ -5,6 +5,7 @@ import { useState } from 'react';
 function App() {
   const [queryDescription, setQueryDescription] = useState('');
   const [sqlQuery, setSqlQuery] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -21,10 +22,22 @@ function App() {
         },
         body: JSON.stringify({ queryDescription })
       });
-      const data = await response.json();
-      return data.response.trim();
-    } catch (error) {
-      console.log(error);
+      if (response.status === 200) {
+        const data = await response.json();
+        return data.response.trim();
+      } else if (response.status === 500) {
+        // process error response
+        response.json()
+          .then(data => {
+            const errorMessage = data.error;
+            setErrorMessage(errorMessage)
+          })
+          .catch(error => {
+            console.error('Error parsing JSON:', error);
+          });
+      }
+    } catch (err) {
+      console.error(err);
     }
   }
 
@@ -46,11 +59,13 @@ function App() {
           type="submit"
           value="Generate query" 
         />
-
-        <p>{sqlQuery}</p>
+        { sqlQuery && <p>{sqlQuery}</p> }
+        { errorMessage && <p style={styleError}>{errorMessage}</p> }
       </form>
     </main>
   )
 }
-
+const styleError = {
+  color: 'red',
+}
 export default App
