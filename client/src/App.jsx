@@ -22,10 +22,11 @@ function App() {
         },
         body: JSON.stringify({ queryDescription })
       });
+      
       if (response.status === 200) {
         const data = await response.json();
         return data.response.trim();
-      } else if (response.status === 500) {
+      } else {
         // process error response
         response.json()
           .then(data => {
