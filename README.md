@@ -4,6 +4,8 @@
 ## Description
 A full-stack application that uses the openai api to take input in human english language and convert it to sql queries depending on description.
 
+<img width="426" alt="Screenshot 2023-06-22 at 9 02 06 AM" src="https://github.com/innocdavid/openai-api-sql/assets/36515548/dd315717-8a04-471c-81c2-fcfee797c727">
+
 ## Stack
 ![ChatGPT](https://img.shields.io/badge/chatGPT-74aa9c?style=for-the-badge&logo=openai&logoColor=white) ![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB) ![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white) ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB) ![Vite](https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white)
 
